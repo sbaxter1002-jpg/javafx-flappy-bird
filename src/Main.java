@@ -1,7 +1,6 @@
 import javafx.application.*;
 import javafx.collections.*;
 import javafx.stage.*;
-import javafx.util.Duration;
 import javafx.scene.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -19,9 +18,25 @@ public class Main extends Application {
     ObservableList<Node> list;
     Bird birdObject = new Bird();
     Group bird = birdObject.bird();
+    double velocity = 0;
+    static final double GRAVITY = 0.3;
+    static final double JUMP_FORCE = -8;
+    static final double GROUND_Y = 616;
 
     public void applyGravity() {
-        bird.setTranslateY(bird.getTranslateY()+1);
+        if (bird.getTranslateY() <= GROUND_Y) {
+            velocity += GRAVITY;
+            bird.setTranslateY(bird.getTranslateY() + velocity);
+        } else {
+            velocity = 0;
+        }
+    }
+
+    public void rotateBird() {
+        // sets target angle but then maxes out target to -30 and 30 
+        double targetAngle = velocity * 6;
+        double clampedAngle = Math.max(-30, Math.min(30, targetAngle));
+        bird.setRotate(clampedAngle);
     }
 
     @Override
@@ -61,10 +76,7 @@ public class Main extends Application {
         scene.setOnKeyPressed((KeyEvent event) -> {
             if (event.getCode() == KeyCode.SPACE) {
                 System.out.println("Space Pressed");
-
-                TranslateTransition jump = new TranslateTransition(Duration.millis(200), bird);
-                jump.setByY(-50);
-                jump.play();
+                velocity = JUMP_FORCE;
             }
         });
 
@@ -72,6 +84,7 @@ public class Main extends Application {
             @Override
             public void handle(long now) {
                 applyGravity();
+                rotateBird();
                 //movePipes();
                 //checkCollisions();
                 //checkScore();
