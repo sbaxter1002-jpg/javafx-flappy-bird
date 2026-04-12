@@ -18,6 +18,8 @@ public class Main extends Application {
     ObservableList<Node> list;
     Bird birdObject = new Bird();
     Group bird = birdObject.bird();
+    Pipe pipeObject = new Pipe();
+    Group pipe = pipeObject.pipe();
     double velocity = 0;
     static final double GRAVITY = 0.3;
     static final double JUMP_FORCE = -8;
@@ -39,10 +41,16 @@ public class Main extends Application {
         bird.setRotate(clampedAngle);
     }
 
+    public void movePipes() {
+        
+    }
+
     @Override
     public void start(Stage stage) throws Exception {
         bird.setTranslateX(150.0f);
         bird.setTranslateY(150.0f);
+
+        pipe.setTranslateX(400);
 
         Rectangle ground = new Rectangle();
         ground.setX(0);
@@ -56,7 +64,7 @@ public class Main extends Application {
 
         Group root = new Group();
 
-        root.getChildren().addAll(ground, bird);
+        root.getChildren().addAll(ground, bird, pipe);
 
         list = root.getChildren();
         System.out.println(list);
@@ -85,7 +93,7 @@ public class Main extends Application {
             public void handle(long now) {
                 applyGravity();
                 rotateBird();
-                //movePipes();
+                movePipes();
                 //checkCollisions();
                 //checkScore();
             }
