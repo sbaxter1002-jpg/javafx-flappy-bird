@@ -8,7 +8,6 @@ import javafx.scene.paint.Color;
 import javafx.animation.*;
 import javafx.scene.shape.*;
 import javafx.scene.text.*;
-import javafx.event.*;
 
 /**
  * 
@@ -24,6 +23,10 @@ public class Main extends Application {
     static final double GRAVITY = 0.3;
     static final double JUMP_FORCE = -8;
     static final double GROUND_Y = 616;
+    static final double PIPE_SPEED = 5;
+    boolean scoreValid = true;
+    int score = 0;
+    Text scoreText = new Text();
 
     public void applyGravity() {
         if (bird.getTranslateY() <= GROUND_Y) {
@@ -42,7 +45,26 @@ public class Main extends Application {
     }
 
     public void movePipes() {
+        if (pipe.getTranslateX() > -150) {
+            pipe.setTranslateX(pipe.getTranslateX() - PIPE_SPEED);
+        }
+        else if (pipe.getTranslateX() == -150) {
+            pipeObject.setTopPipeLength();
+            pipe.setTranslateX(600);
+            scoreValid = true;
+        }
+    }
+
+    public void checkCollisions() {
         
+    }
+
+    public void checkScore() {
+        if (bird.getTranslateX() > pipe.getTranslateX() && scoreValid == true) {
+            score++;
+            scoreValid = false;
+            scoreText.setText(Integer.toString(score));
+        }
     }
 
     @Override
@@ -50,7 +72,16 @@ public class Main extends Application {
         bird.setTranslateX(150.0f);
         bird.setTranslateY(150.0f);
 
-        pipe.setTranslateX(400);
+        pipe.setTranslateX(600);
+
+        scoreText.setText(Integer.toString(score));
+        scoreText.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 35));
+        scoreText.setFill(Color.WHITE);
+        scoreText.setStroke(Color.BLACK);
+        scoreText.setStrokeType(StrokeType.OUTSIDE);
+        scoreText.setStrokeWidth(5);
+        scoreText.setX(280);
+        scoreText.setY(50);
 
         Rectangle ground = new Rectangle();
         ground.setX(0);
@@ -64,7 +95,7 @@ public class Main extends Application {
 
         Group root = new Group();
 
-        root.getChildren().addAll(ground, bird, pipe);
+        root.getChildren().addAll(ground, bird, pipe, scoreText);
 
         list = root.getChildren();
         System.out.println(list);
@@ -95,7 +126,7 @@ public class Main extends Application {
                 rotateBird();
                 movePipes();
                 //checkCollisions();
-                //checkScore();
+                checkScore();
             }
         };
         gameLoop.start();
