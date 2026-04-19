@@ -20,7 +20,9 @@ public class Pipe {
         topPipe.setStrokeType(StrokeType.OUTSIDE);
         topPipe.setStroke(Color.DARKGREEN);
         topPipe.setStrokeWidth(10);
-
+        
+                
+           
         topPipeHead.setWidth(PIPE_HEAD_WIDTH);
         topPipeHead.setHeight(PIPE_HEAD_HEIGHT);
         topPipeHead.setLayoutX(-25);
@@ -29,7 +31,8 @@ public class Pipe {
         topPipeHead.setStrokeType(StrokeType.OUTSIDE);
         topPipeHead.setStroke(Color.DARKGREEN);
         topPipeHead.setStrokeWidth(10);
-
+        
+                
         bottomPipe.setLayoutY(topPipeLength+200);
         bottomPipe.setWidth(PIPE_WIDTH);
         bottomPipe.setHeight(800-160-topPipeLength-200);
@@ -53,7 +56,6 @@ public class Pipe {
     }
     
     public void setTopPipeLength() {
-        System.out.println("Gets here");
         topPipeLength = (int)(Math.random() * (400-75)) + 75;
         System.out.println(topPipeLength);
         topPipe.setHeight(topPipeLength);
@@ -64,6 +66,8 @@ public class Pipe {
     }
 
     public int getTopPipeLength() {
-        return topPipeLength + PIPE_HEAD_HEIGHT;
+        return topPipeLength;
     }
+
+
 }

@@ -3,11 +3,11 @@
     "configurations": [
         {
             "type": "java",
-            "name": "Main",
+            "name": "Menu",
             "request": "launch",
-            "mainClass": "Main",
+            "mainClass": "Menu",
             "projectName": "javafx-flappy-bird_bfabf9f9",
             "vmArgs": "--module-path lib --add-modules javafx.controls,javafx.fxml,javafx.graphics,javafx.media"
-        }
+        },
     ]
 }
