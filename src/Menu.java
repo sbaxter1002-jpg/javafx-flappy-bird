@@ -43,7 +43,6 @@ public class Menu extends Application{
 
         EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
             public void handle(ActionEvent e){
-                System.out.println("YA");
                 Game game = new Game(stage);
                 stage.setScene(game.getScene()) ;
             }
